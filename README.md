@@ -1,42 +1,61 @@
 # CyberGhost
-## 让软件主体携带目标、记忆和进度，走向真实设备
 
-CyberGhost 是独立开发者的任务接续研究原型。我们希望让云端的软件主体，在获授权的执行环境之间保留任务目标、已确认的事实和进度，依据实际结果继续工作，最终在真实设备上完成可观测的动作。
+Task continuity across authorized hosts — toward real hardware.
 
-它关注一个具体问题：任务被中断、调用结果不明或执行环境更换后，如何确认已经发生的事情、保留未知状态，并让新的执行方正确接续。当前采用明确协议、结构化状态与手写策略；尚未进行模型训练，也不是通用机器人控制产品。
+English | [简体中文](README.zh-CN.md)
 
-**更新：2026-10-27。已完成有限软件、官方 ROS 2 mock 及跨平台只读状态接收验证；尚未完成真实跨机器执行和实机实验。** 本仓库是公开介绍与合作入口，原研究源码和完整原件仍私有。
+CyberGhost is an independent research prototype for carrying task goals, confirmed facts and progress from one execution host to another. The aim is to let a software agent resume work on an authorized device without losing track of what happened, what remains uncertain and what should happen next.
 
-## 已经实现什么
+Consider an interrupted device task: the device may have acted even when the application received no result. Before retrying or handing the task to another host, the application needs to establish the original outcome and who is authorized to continue. This is the problem CyberGhost investigates.
 
-| 已验收能力 | 证据范围与限制 |
-|---|---|
-| 同 VM 的任务恢复与冷接续 | 10月25日固定 mock、单一故障位置：A 退出后从持久状态恢复，确认原结果，再启动 B 接续；不代表任意故障或物理网络恢复 |
-| Linux→Windows 只读状态接收 | 10月25日相同交付源码在真实 Linux 与 Windows 执行，8项输出逐项一致；2533字节原件保留目标、记忆和进度，推导下一动作；不授予控制权、不执行设备动作 |
-| 待决与控制者约束 | 较早版本验证未知结果不推进交接、旧控制方请求被合作网关拒绝；不同版本不拼成同版综合能力 |
+**Status — October 27, 2026:** limited software and official ROS 2 mock experiments, plus read-only state reception on Linux and Windows, have passed project-internal reviews. Live execution across machines and physical hardware experiments have not yet been validated.
 
-软件线正在补齐接收端 B 的部署重启恢复入口；这是在研工作，尚非已验收成果。[软件能力与边界](SOFTWARE_STATUS.md) · [版本与历史失败](EVIDENCE_GUIDE.md)。
+## What has been demonstrated
 
-## 现在寻找什么实验资源
+| Capability | Observed result | Scope |
+|---|---|---|
+| Recovery and handoff to a newly started receiver | Host A recovered persisted pending state after exiting at a fixed failure point, confirmed the original result and then started host B to continue | October 25; one VM, fixed mock controller, one failure location |
+| Portable state reception | The same delivered code produced matching results for eight CLI cases on Linux and Windows. A 2,533-byte transfer preserved the original goal, memory and progress, and derived the next action | October 25; read-only reception, no device command or control authorization |
+| Pending-result and owner checks | Earlier versions withheld handoff when results were unknown and rejected requests from the previous controller at a cooperating gateway | Separate experiments; not a combined guarantee for the latest version |
 
-当前最有价值的资源是**可运行接收程序的第二执行节点，以及双方明确允许的通信和设备接口**。优先借用已有资源、短时远程访问或受监督机时，不以获赠整机为前提。
+The implementation currently uses explicit protocols, structured state and hand-written policies. It does not train a model or provide general-purpose autonomous robot planning. Receiver B's deployment restart path is work in progress in this status snapshot, not an accepted result.
 
-1. Linux/Python 边缘板、闲置小主机或合作方测试节点：允许部署应用、持久保存任务状态、重启应用并导出日志；架构和依赖先做兼容核查。
-2. 两端均允许的传输方式：明确认证、任务身份、结果查询、控制权授予与撤销。收到状态文件不等于获得执行权限。
-3. 可观测的低能量输入/输出：先读真实输入，再在批准范围内验证显示、指示灯或其他限定输出；机械臂等动作设备随后按接口匹配推进。只读传感不算动作迁移。
+## Looking for a small hardware collaboration
 
-第一次只需公开环境/接口资料或约30分钟技术交流。匹配后讨论一个不超过半天的受监督试验时段，具体实施与准备时间按设备确认。我们拟提供接口行为表、最小问题复现、同设备基线对照和双方认可的集成说明；尚无降低成本或提高可靠性的实测收益。
+We are looking for a **second execution node with permission to deploy an application, preserve state, restart the application and retrieve logs**, together with an agreed communication path between hosts.
 
-[合作范围与资源问卷](COOPERATION.md)
+Suitable starting points include an existing Linux/Python edge board, small computer or remotely accessible test node. Architecture and dependencies need review; we do not assume every board can run the full ROS stack. A loan, supervised remote session or interface review can be useful — donated hardware is not a prerequisite.
 
-## 如何进入真实世界
+The next step is observable, low-energy input/output: for example, an onboard input and a display or indicator, followed by a supported actuator when appropriate. Sensing alone would be reported as sensing validation, not physical action continuity. Receiving a state file never grants control permission.
 
-先确认第二节点与传输，再核查只读状态和控制权限，最后在设备方批准的范围内完成一个真实动作及一次中断接续对照。每次保留实际观测和失败，将设备差异反馈给软件线，修复后回到同一设备复测。
+**A useful first response:** a public environment/SDK link, the permitted deployment and access model, and a technical contact. An asynchronous review or a roughly 30-minute discussion is enough to assess fit. After that, we can discuss a supervised session of up to half a day; preparation, scope and timing would be agreed separately.
 
-目前没有已确认的设备或实验时段。GenericSystem mock 不包含真实制动、负载或碰撞；设备权限、现场负责人和独立停止手段须按具体方案确认。若现有 SDK 或单一持久任务协调器已经足够，我们接受并复用该结论。
+In return, we propose a versioned interface behavior report, minimal reproductions where needed, a comparison against a native or single-host baseline, and a mutually agreed integration guide. Any savings in recovery effort or improvement in reliability must be measured, not assumed.
 
-**联系：yujin / 余烬 · 独立开发者 · 杭州，可到浙江、上海**
+[Collaboration scope and resource checklist →](COOPERATION.md)
+
+## From software evidence to physical results
+
+The planned sequence is: confirm the second node and transport → verify state and authorization with outputs disabled → perform an approved physical output → compare normal execution with a bounded interruption/recovery case. Device findings go back into the software work; fixes are then retested on the same device.
+
+No device or experiment slot is currently confirmed in our records. Mock behavior does not establish physical braking, stopping distance or safety. Device-specific permissions, supervision and an independent stop mechanism must be agreed before actuator tests. If an existing SDK or persistent task coordinator already solves the problem, that is a useful result too.
+
+## Repository and evidence
+
+This repository contains the public project overview and collaboration materials. It is **not an installable software release**. The research source and complete experimental records remain private; there is no public quick-start or independently reproducible release here yet.
+
+Results above are scoped internal reviews, not third-party certification. Earlier failures remain recorded, and results from different versions are not combined into a single reliability claim. Detailed historical summaries are currently available in Chinese:
+
+- [Software status and limitations (中文)](SOFTWARE_STATUS.md)
+- [Version anchors and failed experiments (中文)](EVIDENCE_GUIDE.md)
+- [Earlier experiment walkthrough (中文)](WALKTHROUGH.md)
+
+Source publication, licensing and any partner deliverables would be agreed separately. No license to unpublished source is granted by this overview.
+
+## Contact
+
+**yujin / 余烬 — independent developer, Hangzhou, China (UTC+8)**
 
 [vennai26@163.com](mailto:vennai26@163.com)
 
-欢迎提供公开设备资料、允许的接入方式及成本条件；请勿在公开 Issue 中提交凭据或受限资料。公开材料是项目内部限定验收摘要，不是第三方认证。源码发布、许可证、费用和成果权利另行确认。
+Open to remote collaboration internationally; available for in-person discussions or supervised sessions in Zhejiang and Shanghai, China. Please share public documentation rather than credentials, restricted logs or personal identification in public issues.

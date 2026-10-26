@@ -1,60 +1,66 @@
-# 一次小范围接口合作，验证任务结果与接续行为
+# A small collaboration to test task continuity on hardware
 
-更新：2026-10-27。联系人：yujin / 余烬，独立开发者，杭州；可到浙江、上海或配合受监督远程测试。联系：[vennai26@163.com](mailto:vennai26@163.com)。
+English | [简体中文](COOPERATION.zh-CN.md)
 
-## 这项合作可能解决什么
+Updated October 27, 2026 · [Project overview](README.md)
 
-设备已经执行动作，调用方却没有拿到明确结果。集成程序应查询原任务、等待还是允许另一主体接续？SDK中的接单、取消确认、最终结果和真实状态是否足以区分这些情况？
+## The question we want to test
 
-我们希望与设备团队核查这一具体问题。CyberGhost已有官方ROS 2 mock环境下的有限任务接续证据；真实设备上的结果保留、授权与停止行为仍需要验证。尚无降低成本或提高可靠性的实测收益。
+When a device may have completed an action but the application has no confirmed result, can the application recover the original outcome and safely determine whether another authorized host may continue?
 
-## 第一次只需提供什么
+CyberGhost has limited evidence from official ROS 2 mock controllers, persisted task recovery within one VM, and read-only state reception on Linux and Windows. Real device behavior, live execution across machines and practical benefits remain unvalidated.
 
-先提供公开环境和接口资料，或约30分钟技术交流。当前优先寻找可部署接收程序的第二执行节点：Linux/Python边缘板、小主机或远程测试节点均可，先核对CPU架构、Python版本、依赖、持久目录、应用重启与日志导出权限，不假定任意板卡可运行完整ROS栈。
+## The smallest useful starting point
 
-同时确认两端允许的通信方式、认证和控制权授予、任务ID及结果查询。只允许上传审核脚本的平台，需明确是否能保存/导出任务状态及接入所需调用；否则只作局部接口实验，不称完整主体迁移。
+A public environment/SDK link or an asynchronous interface review is enough to start. We can also discuss the fit in a roughly 30-minute conversation.
 
-可先从板载输入、显示或指示灯等可观测输出开始，后续再接有状态查询和取消能力的低能量执行机构。优先现有设备借用、远程机时和接口评审；寄送整机不是前提。仅采集数据属于感知验证。
+Our immediate priority is a second execution node: a Linux/Python edge board, small computer or remote test node where deployment, persistent task storage, application restart and log export are permitted. We need to check CPU architecture, Python version, dependencies and the authorized communication path; full ROS compatibility is not assumed.
 
-匹配后讨论不超过半天的受监督试验，包含检查与清理，准备投入另行确认。按第二节点/传输→只读及禁能→批准的真实输出逐级进入；当前无资源或时段承诺。
+An onboard input and a display or indicator can support an initial bounded experiment. An actuator with task identity, result queries, cancellation and observable state is a later option. Script-upload-only platforms are useful for full continuity testing only if their state retention, export and invocation permissions fit the experiment; otherwise their role would be limited to interface evaluation.
 
-## 设备团队会收到什么
+Existing equipment, loans and supervised remote time are welcome. Shipping a complete robot is not required. No resource or time slot is currently committed in our records.
 
-| 拟议产物 | 具体用途 |
+## What we would contribute
+
+| Proposed deliverable | Purpose |
 |---|---|
-| 版本明确的一页接口行为表 | 说明接单、完成、查询、取消、失联和控制者变化的实测行为与未知项 |
-| 最小问题复现与脱敏证据 | 如遇问题，让驱动或应用团队可以定位；若行为符合设计，同样如实记录 |
-| 同设备有限对照 | 比较单主体基线与A→B接续的结果确认、重复目标、误交接及人工恢复；无可比数据不报收益百分比 |
-| 双方认可的集成说明或演示 | 供开发者复用；公开范围、署名及商标使用先确认 |
+| A versioned interface behavior table | Document submission, completion, queries, cancellation, loss of connection and controller changes, including unknowns |
+| Minimal reproductions and sanitized evidence | Help reproduce integration issues; report correct behavior just as clearly |
+| A bounded comparison on the same device | Compare the native/single-host baseline with handoff: duplicate actions, false completion, unknown outcomes and manual recovery |
+| An agreed integration note or demonstration | Give developers a reusable account of what worked and what did not |
 
-我们负责资料整理、适配准备和结果报告。设备方需要提供接口联系人、允许的接入方式及现场操作/停止负责人。具体交付范围与时间在设备匹配后确认；本页不构成费用、赔偿、源码交付或独占权利承诺。
+We would prepare the adaptation and report the results. The partner would provide an interface contact, authorized access and, for physical tests, an operator and stop procedure. Scope, preparation effort and delivery dates are agreed after the environment is understood. We make no advance claim of reduced costs, improved reliability or audience reach.
 
-如果现有SDK或单一持久任务协调器已足够解决问题，我们会报告并复用该结果。
+If an existing SDK or single persistent coordinator is sufficient, we will document that finding rather than force an additional layer.
 
-## 快速判断设备是否适配
+## Information that helps assess fit
 
-首次回复前四项即可，也可直接给公开文档链接；未知项可留空，请勿发送凭据或受限日志。
+Please answer what is readily available or send public documentation; unknowns can remain open.
 
-| 问题 | 希望了解的信息 |
+| Topic | Useful details |
 |---|---|
-| 设备与版本 | 型号、固件/驱动版本、官方SDK或ROS接口、标准示例 |
-| 任务结果 | 稳定任务ID、查询方式、结果保留时间、重复同ID提交的行为 |
-| 取消与状态 | 取消确认与最终结果如何区分，位置/速度反馈及时间戳 |
-| 接入与授权 | 允许运行位置、只读/禁能方式、运动权限授予与撤销、并行客户端限制 |
-| 失联 | 调用方退出、网络中断、控制进程重启时设备默认行为及结果保留 |
-| 现场条件 | 操作负责人、独立停止手段、允许的空间/负载/速度范围 |
-| 时段及条款 | 远程或现场时段、费用/押金、数据保存和公开要求 |
+| Execution environment | Board/computer, CPU architecture, OS, Python, SDK/driver versions and official example |
+| Deployment and communication | Allowed application location, persistent storage, process restart, log export, transport and authentication |
+| Task outcome | Stable task ID, query interface, result retention, behavior on repeated submission of the same ID |
+| Authorization | Granting/revoking control, concurrent clients, read-only or output-disabled mode |
+| Device behavior | Cancellation versus final outcome, observable state and timestamps, behavior after client exit or disconnection |
+| Physical access | Remote or on-site supervision, independent stop mechanism and allowed operating limits |
+| Terms | Availability, fees/deposit, data retention, publication and ownership requirements |
 
-## 如何决定进入动作测试
+## A bounded first experiment
 
-先核对官方示例与只读状态，再确认设备授权、现场负责人和独立停止手段，最后共同审阅一份单设备有限方案。任一条件不清楚，就停在接口评审并列出缺口。
+After an interface review, we propose discussing a supervised session of up to half a day, including checks and cleanup. Preparation time is separate. Confirm the second node and transport first, then read-only/output-disabled behavior, then an approved physical output.
 
-动作参数、样本、误差和停止阈值依据实际设备资料预先确定。首轮不做破坏性故障、断电、碰撞或无人值守动作。取消响应、控制器终态和实际停止分别观察；mock位置保持不能替代物理停止证据。
+Before actuator testing, jointly agree the device, software version, parameters, observations, samples, stop conditions and responsible operator. If permissions, supervision or the stop mechanism are unclear, the deliverable stays an interface gap report. The initial scope excludes destructive faults, power-cut tests, collisions and unattended motion.
 
-## 当前证据能支持多少
+Observe cancellation acknowledgement, controller outcome and actual stopping separately. Mock position retention is not evidence of physical stopping. Compare the same task and configuration against a native/single-host baseline; do not claim a benefit without comparable measurements.
 
-已验收同VM固定mock的A恢复与冷B接续，以及真实Linux/Windows的同版只读状态接收；B部署重启恢复仍在研。未完成实时跨机执行或实机验证。只读接收不能自动获得设备控制权。
+A software fix is not the end of a hardware finding: retest on the same device and record the outcome. Failures remain in the report. Fees, liability, publication rights and source delivery require separate agreement; this page accepts none of those terms on either party's behalf.
 
-[软件摘要](SOFTWARE_STATUS.md) · [版本与失败记录](EVIDENCE_GUIDE.md)
+## Contact and next step
 
-公开资料是项目内部限定验收摘要，无公开可复现发行版或第三方认证。第一阶段成功是提供方确认设备/接口、部署与通信权限、负责人、可用时段和费用责任条件，可据此冻结单设备方案。首测比较同设备原生/单主体基线与接续：真实输出、重复动作、误报完成、未知状态和人工恢复；失败保留，软件修复后同设备复测才关闭问题。
+Email **[vennai26@163.com](mailto:vennai26@163.com)** with a public environment/interface link and the access model you could consider. No credentials or restricted logs are needed.
+
+**yujin / 余烬**, independent developer, Hangzhou, China (UTC+8). Remote collaboration is welcome internationally; in-person availability is in Zhejiang and Shanghai. We can start asynchronously to accommodate time zones.
+
+[English project overview](README.md) · [中文项目介绍](README.zh-CN.md)
