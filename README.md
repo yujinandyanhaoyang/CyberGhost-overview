@@ -8,7 +8,7 @@ CyberGhost is an independent research prototype for carrying task goals, confirm
 
 Consider an interrupted device task: the device may have acted even when the application received no result. Before retrying or handing the task to another host, the application needs to establish the original outcome and who is authorized to continue. This is the problem CyberGhost investigates.
 
-**Status — October 27, 2026:** limited software and official ROS 2 mock experiments, plus read-only state reception on Linux and Windows, have passed project-internal reviews. Live execution across machines and physical hardware experiments have not yet been validated.
+**Status — October 30, 2026:** limited software and official ROS 2 mock experiments, plus read-only state reception on Linux and Windows, have passed project-internal reviews. Live execution across machines and physical hardware experiments have not yet been validated.
 
 ## What has been demonstrated
 
@@ -18,7 +18,9 @@ Consider an interrupted device task: the device may have acted even when the app
 | Portable state reception | The same delivered code produced matching results for eight CLI cases on Linux and Windows. A 2,533-byte transfer preserved the original goal, memory and progress, and derived the next action | October 25; read-only reception, no device command or control authorization |
 | Pending-result and owner checks | Earlier versions withheld handoff when results were unknown and rejected requests from the previous controller at a cooperating gateway | Separate experiments; not a combined guarantee for the latest version |
 
-The implementation currently uses explicit protocols, structured state and hand-written policies. It does not train a model or provide general-purpose autonomous robot planning. Receiver B's deployment restart path is work in progress in this status snapshot, not an accepted result.
+The implementation currently uses explicit protocols, structured state and hand-written policies. It does not train a model or provide general-purpose autonomous robot planning. Fixed-point A/B recovery was accepted in a separate October 27 same-VM mock version. The October 28 execution-adapter review also accepted three bounded normal/restart/unknown cases on one designated VM: two goal submissions and four result queries in total, with no resubmission after the tested client restart. These are separate versioned results, not a combined cross-machine guarantee.
+
+The October 28 unknown-result case used historical predecessor state; it was not a new end-to-end A→B handoff. Server restart, cancellation, arbitrary crashes and physical actions were outside that experiment. The source and full records remain private; the result is suitable for an interface discussion, not a ready-to-install public release.
 
 ## Looking for a small hardware collaboration
 
