@@ -21,9 +21,11 @@ Protocol adapters and device-specific knowledge remain explicit parts of the int
 
 The internally reviewed CG73R1 baseline covers three fixed cases involving changes to a declared communication graph, explicit rejection before authorization, and an unknown receipt. Skills run in controlled isolated software processes. CG74 additionally passed two fixed direct-link-loss cases with an authoritative ledger still reachable, covering confirmed revocation, alternate routing and rejection of late activation. Earlier ROS 2 mock and Linux/Windows results have their own versions and scopes.
 
+CG75R2 reused RAX’s lightweight client and passed four fixed Context protocol cases over local Unix sockets, covering success, JSON-RPC errors, tool errors and response-ID mismatch. This is a bounded client compatibility result.
+
 New-host capability learning, physical migration, generalization to arbitrary robots, external adoption and economic benefit remain open validation items. [Software evidence and limits](SOFTWARE_STATUS.md)
 
-RAX is a closely related research direction. Its published robot adaptation design is an input to our component-reuse review. The value of combining host adaptation with our continuity mechanism needs direct comparison. [RAX](https://arxiv.org/abs/2610.22496) · [Robot adaptation guide](https://github.com/robot-agent-exploration/rax/blob/main/docs/REAL_ROBOT_ADAPTATION.md)
+RAX is a closely related research direction. Our source review identified host-interface descriptions, handoff memory and cross-session skill storage, and informed the client reuse above. The value of combining host adaptation with our continuity mechanism needs direct comparison. [RAX](https://arxiv.org/abs/2610.22496) · [Robot adaptation guide](https://github.com/robot-agent-exploration/rax/blob/main/docs/REAL_ROBOT_ADAPTATION.md)
 
 ## What we want to test with a partner
 

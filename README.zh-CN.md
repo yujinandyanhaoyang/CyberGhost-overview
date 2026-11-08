@@ -21,9 +21,11 @@
 
 已独立核验的CG73R1覆盖声明通信图变化、授权前明确拒绝和未知回执三个固定场景，技能在受控隔离软件进程内执行。CG74另通过两个直连中断固定场景，在权威账本仍可达时核验撤销确认、替代路线及迟到激活拒绝。此前ROS 2 mock与Linux/Windows结果各有版本和范围。
 
+CG75R2复用RAX轻量客户端，在本地Unix socket上通过四项固定Context协议场景，覆盖成功、JSON-RPC错误、工具错误和响应ID不匹配。本项结论限于客户端兼容性。
+
 新宿主自主理解、真实物理迁移、任意机器人泛化、外部采用和经济收益仍待验证。[软件证据与边界](SOFTWARE_STATUS.md)
 
-RAX与本项目的宿主适应目标高度相关，其实机适配设计已纳入组件复用审查。与现有方法相比，持续性和宿主适应结合能产生何种增量，需要直接对照。[RAX论文](https://arxiv.org/abs/2610.22496) · [实机适配指南](https://github.com/robot-agent-exploration/rax/blob/main/docs/REAL_ROBOT_ADAPTATION.md)
+RAX与本项目的宿主适应目标高度相关，源码审查已识别宿主接口描述、交接记忆及跨会话技能库，并据此推进上述客户端复用。与现有方法相比，持续性和宿主适应结合能产生何种增量，需要直接对照。[RAX论文](https://arxiv.org/abs/2610.22496) · [实机适配指南](https://github.com/robot-agent-exploration/rax/blob/main/docs/REAL_ROBOT_ADAPTATION.md)
 
 ## 希望共同验证什么
 
