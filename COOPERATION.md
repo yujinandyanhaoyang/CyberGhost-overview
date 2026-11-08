@@ -1,66 +1,34 @@
-# A small collaboration to test task continuity on hardware
+# Hardware collaboration for host adaptation and task continuity
 
 English | [简体中文](COOPERATION.zh-CN.md)
 
-Updated October 27, 2026 · [Project overview](README.md)
+Updated November 8, 2026. [Project overview](README.md)
 
-## The question we want to test
+## First useful input
 
-When a device may have completed an action but the application has no confirmed result, can the application recover the original outcome and safely determine whether another authorized host may continue?
+A real task performed with existing robot skills, its current integration or interruption problem, and the existing workaround. A technical reviewer can help confirm whether a comparative test addresses a useful need.
 
-CyberGhost has limited evidence from official ROS 2 mock controllers, persisted task recovery within one VM, and read-only state reception on Linux and Windows. Real device behavior, live execution across machines and practical benefits remain unvalidated.
+Public SDK, skill or model documentation is sufficient for an initial interface review. We then need the permitted runtime location, communication path, authentication arrangement, available feedback and responsible operator.
 
-## The smallest useful starting point
+## A bounded path to an experiment
 
-A public environment/SDK link or an asynchronous interface review is enough to start. We can also discuss the fit in a roughly 30-minute conversation.
+1. Inspect documented skills, parameter units/frames, preconditions, observable results, query semantics and stopping behavior.
+2. Confirm deployment, communication, data retention/export, time slot, responsibilities and any costs or obligations.
+3. Verify the native example and read-only observations, then run an explicitly authorized, supervised physical task with agreed limits and stopping conditions.
+4. Seek a second host with different interfaces or capabilities. Freeze the common agent core before revealing its host-specific material and record all adaptation work.
 
-Our immediate priority is a second execution node: a Linux/Python edge board, small computer or remote test node where deployment, persistent task storage, application restart and log export are permitted. We need to check CPU architecture, Python version, dependencies and the authorized communication path; full ROS compatibility is not assumed.
+One physical task establishes a local observation/action/result chain. Cross-host claims require both hosts and direct continuity evidence. A hosted-script platform can support a subset when its permissions and state export match the experiment.
 
-An onboard input and a display or indicator can support an initial bounded experiment. An actuator with task identity, result queries, cancellation and observable state is a later option. Script-upload-only platforms are useful for full continuity testing only if their state retention, export and invocation permissions fit the experiment; otherwise their role would be limited to interface evaluation.
+## Comparison and deliverables
 
-Existing equipment, loans and supervised remote time are welcome. Shipping a complete robot is not required. No resource or time slot is currently committed in our records.
+Keep available task information and native skills comparable across a manually integrated baseline, a fixed capability-table agent and the adaptive agent. For continuity, include a persistent coordinator baseline.
 
-## What we would contribute
+Record task completion, incorrect calls, unknown-state handling, duplicated effects, capability interpretation, human changes and adaptation/recovery time. Preserve failed first attempts. Scope, samples and thresholds are frozen with the partner before running.
 
-| Proposed deliverable | Purpose |
-|---|---|
-| A versioned interface behavior table | Document submission, completion, queries, cancellation, loss of connection and controller changes, including unknowns |
-| Minimal reproductions and sanitized evidence | Help reproduce integration issues; report correct behavior just as clearly |
-| A bounded comparison on the same device | Compare the native/single-host baseline with handoff: duplicate actions, false completion, unknown outcomes and manual recovery |
-| An agreed integration note or demonstration | Give developers a reusable account of what worked and what did not |
+The proposed output is a versioned interface behavior table, a concise comparison report, and any agreed minimal issue reproduction. Publication, naming and data scope are confirmed separately.
 
-We would prepare the adaptation and report the results. The partner would provide an interface contact, authorized access and, for physical tests, an operator and stop procedure. Scope, preparation effort and delivery dates are agreed after the environment is understood. We make no advance claim of reduced costs, improved reliability or audience reach.
+## Resource fit
 
-If an existing SDK or single persistent coordinator is sufficient, we will document that finding rather than force an additional layer.
+Useful resources include a documented robot or edge host with an existing skill interface, persistent task state, result feedback and an independent way to observe the outcome. A second device with another SDK/protocol or capability profile is especially relevant. Access and evidence quality guide selection.
 
-## Information that helps assess fit
-
-Please answer what is readily available or send public documentation; unknowns can remain open.
-
-| Topic | Useful details |
-|---|---|
-| Execution environment | Board/computer, CPU architecture, OS, Python, SDK/driver versions and official example |
-| Deployment and communication | Allowed application location, persistent storage, process restart, log export, transport and authentication |
-| Task outcome | Stable task ID, query interface, result retention, behavior on repeated submission of the same ID |
-| Authorization | Granting/revoking control, concurrent clients, read-only or output-disabled mode |
-| Device behavior | Cancellation versus final outcome, observable state and timestamps, behavior after client exit or disconnection |
-| Physical access | Remote or on-site supervision, independent stop mechanism and allowed operating limits |
-| Terms | Availability, fees/deposit, data retention, publication and ownership requirements |
-
-## A bounded first experiment
-
-After an interface review, we propose discussing a supervised session of up to half a day, including checks and cleanup. Preparation time is separate. Confirm the second node and transport first, then read-only/output-disabled behavior, then an approved physical output.
-
-Before actuator testing, jointly agree the device, software version, parameters, observations, samples, stop conditions and responsible operator. If permissions, supervision or the stop mechanism are unclear, the deliverable stays an interface gap report. The initial scope excludes destructive faults, power-cut tests, collisions and unattended motion.
-
-Observe cancellation acknowledgement, controller outcome and actual stopping separately. Mock position retention is not evidence of physical stopping. Compare the same task and configuration against a native/single-host baseline; do not claim a benefit without comparable measurements.
-
-A software fix is not the end of a hardware finding: retest on the same device and record the outcome. Failures remain in the report. Fees, liability, publication rights and source delivery require separate agreement; this page accepts none of those terms on either party's behalf.
-
-## Contact and next step
-
-Email **[vennai26@163.com](mailto:vennai26@163.com)** with a public environment/interface link and the access model you could consider. No credentials or restricted logs are needed.
-
-**yujin / 余烬**, independent developer, Hangzhou, China (UTC+8). Remote collaboration is welcome internationally; in-person availability is in Zhejiang and Shanghai. We can start asynchronously to accommodate time zones.
-
-[English project overview](README.md) · [中文项目介绍](README.zh-CN.md)
+Contact yujin / 余烬 in Hangzhou at [vennai26@163.com](mailto:vennai26@163.com). Please share public documentation and permitted access conditions. Fees, contracts, source delivery, licensing and physical operations require their specific agreements.
